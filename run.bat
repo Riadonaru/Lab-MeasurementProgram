@@ -12,7 +12,7 @@ REM -----------------------------
 REM Check if virtual environment exists
 REM -----------------------------
 IF NOT EXIST "%VENV_DIR%\Scripts\activate.bat" (
-    echo Virtual environment not found. Please run setup_venv.bat first.
+    echo Virtual environment not found. Please run setup.bat first.
     pause
     exit /b 1
 )
