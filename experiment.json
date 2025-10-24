@@ -1,0 +1,27 @@
+{
+    "description": "This file contains configuration settings for the experiment.",
+    "experiment_name": "Wave measurement No.1",
+    "parameters": {
+        "transducers": {
+            "count": 16,
+            "first_channel": 0
+        },        
+        "wave": {
+            "amplitude": 5.0,
+            "frequency": 1.0,
+            "phase": 0.0
+        },
+        "scan": {
+            "step": 1.0,
+            "samples_per_step": 5,
+            "area": {
+                "length": 80.0,
+                "width": 80.0
+            }
+        }
+    },
+    "output": {
+        "video_save_path": ".\\videos\\",
+        "log_path": ".\\logs\\"
+    }   
+}
