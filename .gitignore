@@ -25,7 +25,7 @@ dist/
 Thumbs.db
 
 # Backup files
-tmp/
+tmp/.pkl
 
 # Logs
 *.log
