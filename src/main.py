@@ -1,5 +1,5 @@
-from setup import generate_waveform, set_logger
-
+from setup.logger_setup import set_logger
+from setup.wave import generate_waveform
 
 def main() -> None:
     # logger setup
