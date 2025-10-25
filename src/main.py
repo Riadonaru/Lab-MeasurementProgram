@@ -1,10 +1,11 @@
 from setup.logger_setup import set_logger
 from setup.wave import generate_waveform
+import measurement.backup as backup
 
 def main() -> None:
     # logger setup
     set_logger()
-    
+           
     # load experiment settings
     generate_waveform(plot=True)
     
@@ -12,4 +13,6 @@ def main() -> None:
     # run experiment
     return
 
-main()
+
+if __name__ == "__main__":
+    main()

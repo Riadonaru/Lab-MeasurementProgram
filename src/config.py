@@ -9,5 +9,6 @@ def load_globals(file_path) -> dict:
     return globals_dict
 
 
-FILE_PATH = 'experiment.json'
-SETTINGS = load_globals(FILE_PATH)
+BACKUP_PATH = 'tmp'
+EXPERIMENT_PATH = 'experiment.json'
+SETTINGS = load_globals(EXPERIMENT_PATH)
