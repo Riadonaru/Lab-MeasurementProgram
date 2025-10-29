@@ -10,17 +10,5 @@ class Device(ABC):
         pass
     
     @abstractmethod
-    def init(self):
-        pass
-    
-    @abstractmethod
     def disconnect(self):
-        pass
-    
-    @abstractmethod
-    def __enter__():
-        pass
-    
-    @abstractmethod
-    def __exit__(self, exc_type, exc_value, traceback):
         pass

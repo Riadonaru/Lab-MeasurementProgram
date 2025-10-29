@@ -1,19 +1,22 @@
 import pyvisa
+from devices.device import Device
 
+class LecroyOscilloscope(Device):
+    
+    def __init__(self, id: str):
+        super().__init__(id)
+        self.rm = pyvisa.ResourceManager()
+        self.scope: pyvisa.resources.Resource = self.rm.open_resource(self.id)
+        self.scope.write("TIME_DIV 1E-3")   # Set time/div to 1 ms
+        self.scope.write("C1:TRACE ON")     # Turn on channel 1
+        self.scope.write("C2:TRACE ON")     # Turn on channel 2
 
-# Initialize VISA resource manager
-rm = pyvisa.ResourceManager()
-scope = rm.open_resource("USB0::0x05FF::0x1023::2816N63242::0::INSTR")
+    def identify(self):
+        return self.scope.query("*IDN?")
 
-# Identify the instrument
-print(scope.query("*IDN?"))
-
-# Example: set timebase and acquire waveform
-scope.write("TIME_DIV 1E-3")   # Set time/div to 1 ms
-scope.write("C1:TRACE ON")     # Turn on channel 1
-scope.write("C2:TRACE ON")     # Turn on channel 2
-scope.write("ARM")             # Arm the trigger
-
-# Fetch waveform data
-data = scope.query_binary_values("C1:WAVEFORM? DAT1", datatype='B', container=bytes)
-print(f"Received {len(data)} bytes of waveform data.")
+    def arm_trigger(self):
+        self.scope.write("ARM")
+        
+    def fetch_waveform(self, channel: int = 1):
+        return self.scope.query_binary_values(f"C{channel}:WAVEFORM? DAT1", datatype='B', container=bytes)
+ 
