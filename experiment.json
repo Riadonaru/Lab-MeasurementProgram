@@ -2,6 +2,14 @@
     "description": "This file contains configuration settings for the experiment.",
     "experiment_name": "Wave measurement No.1",
     "parameters": {
+        "device_ids": {
+            "pxi": "PXI1Slot2",
+            "oscilloscope": "USB0::0x05FF::0x1023::2816N63242::0::INSTR"
+        },
+        "points": {
+            "start_cloak" : [0.0, 0.0],
+            "start_scatter": [0.0, 0.0]
+        },
         "transducers": {
             "count": 16,
             "first_channel": 0
@@ -23,7 +31,8 @@
         }
     },
     "output": {
-        "video_save_path": ".\\videos\\",
-        "log_path": ".\\logs\\"
+        "video_save_path": "res",
+        "backup_path": "tmp",
+        "log_path": "logs"
     }   
 }
