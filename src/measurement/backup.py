@@ -3,8 +3,9 @@ import time
 import pickle
 import logging
 
-from config import BACKUP_PATH
+from config import SETTINGS
 
+BACKUP_PATH = SETTINGS["output"]["backup_path"]
 
 def ensure_backup_directory() -> None:
     """Ensures the backup directory exists and creates it if it doesn't."""
