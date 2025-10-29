@@ -7,10 +7,10 @@ from devices.device import Device
 
 class Pxi(Device):
 
-    def __init__(self, id):
+    def __init__(self, id = "PXI1Slot2"):
         super().__init__(id)
         
-    def write_waveform(self, waveform: np.ndarray) -> None:
+    def write_to_device(self, waveform: np.ndarray) -> None:
         with nidaqmx.Task() as task:
             task.ao_channels.add_ao_voltage_chan(f"{self.id}/ao0")
             sample_rate = 10000 # 10 kHz
