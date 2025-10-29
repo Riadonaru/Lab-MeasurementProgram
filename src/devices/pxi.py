@@ -21,3 +21,10 @@ class Pxi(Device):
 
             task.wait_until_done()
             task.stop()
+            
+            
+    def __enter__(self):
+        pass
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        return super().__exit__(exc_type, exc_value, traceback)
