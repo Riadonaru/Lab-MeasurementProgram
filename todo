@@ -1,0 +1,4 @@
+Commands:
+
+setzero - set current location as the absolute zero.
+goto x y - moves the laser to the point (x, y)
