@@ -1,49 +1,40 @@
 import serial
 import time
 
-# --- Adjust this port and baud rate for your setup ---
-PORT = 'COM5'
+# Adjust these for your setup
+PORT = 'COM5'   # e.g., 'COM3' on Windows or '/dev/ttyUSB0' on Linux
 BAUD = 115200
-    
-# --- Connect to GRBL ---
-grbl = serial.Serial(PORT, BAUD)
-time.sleep(2)  # Wait for GRBL to initialize
 
-# --- Initialize GRBL and XY plane ---
-init_commands = [
-    '$X',   # Unlock GRBL
-    'G17',  # Select XY plane
-    'G21',  # Set units to millimeters
-    'G90',  # Absolute coordinates
-    'G54'
-]
+# Open serial connection
+grbl = serial.Serial(PORT, BAUD, timeout=1)
 
-for cmd in init_commands:
-    grbl.write((cmd + '\n').encode())
-    time.sleep(0.2)
+# Give GRBL time to initialize
+time.sleep(2)
 
-print("✅ GRBL initialized for XY motion")    
-    
-# --- Define function to move to a point ---
-def move_to(x, y, feed_rate=500):
-    """
-    Move the GRBL-controlled machine to (x, y) in mm.
-    feed_rate is in mm/min.
-    """
-    gcode = f"G01 X{x:.3f} Y{y:.3f} F{feed_rate}"
-    print(f"→ Sending: {gcode}")
-    grbl.write((gcode + '\n').encode())
-    time.sleep(0.1)
-    
-    # Read and print GRBL response
-    while grbl.in_waiting:
-        response = grbl.readline().decode().strip()
-        print(f"← {response}")
+# Flush startup text in buffer
+grbl.reset_input_buffer()
 
-# --- Example usage ---
-move_to(0, 0)     # Return to origin
-time.sleep(20)
+print("Connected to GRBL on", PORT)
+print("Type G-code commands, or 'exit' to quit.")
 
-# --- Close connection when done ---
-grbl.close()
-print("🔌 Connection closed.")
+try:
+    while True:
+        cmd = input(">>> ").strip()
+        if cmd.lower() in ['exit', 'quit']:
+            break
+
+        # Send command with newline
+        grbl.write((cmd + '\n').encode())
+
+        # Read GRBL response(s)
+        while True:
+            line = grbl.readline().decode().strip()
+            if not line:
+                break
+            print("<--", line)
+
+except KeyboardInterrupt:
+    pass
+finally:
+    grbl.close()
+    print("Connection closed.")
