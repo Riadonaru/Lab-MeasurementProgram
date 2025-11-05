@@ -39,9 +39,15 @@ class Laser():
 
 if __name__ == "__main__":
     with Laser() as las:
-        cmd = input("---> ")
+        # Turn laser on
+        cmd = "Set, SensorHead, 0, Laser, 1"
         while cmd != "exit":
             las.send_command(cmd)
             cmd = input("---> ")
+            
+        # Turn laser off
+        cmd = "Set, SensorHead, 0, Laser, 0"
+        las.send_command(cmd)
+
 
 
